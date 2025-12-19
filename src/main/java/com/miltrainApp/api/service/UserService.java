@@ -1,5 +1,6 @@
-package com.miltrainApp.userService;
+package com.miltrainApp.api.service;
 
+import com.miltrainApp.model.User;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;

@@ -1,8 +1,8 @@
 package com.miltrainApp.api.apiService;
 
 
-import com.miltrainApp.userService.User;
-import com.miltrainApp.userService.UserService;
+import com.miltrainApp.model.User;
+import com.miltrainApp.api.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

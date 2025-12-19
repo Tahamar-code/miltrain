@@ -1,4 +1,4 @@
-package com.miltrainApp.userService;
+package com.miltrainApp.model;
 
 
 import com.miltrainApp.utils.AppUtils;

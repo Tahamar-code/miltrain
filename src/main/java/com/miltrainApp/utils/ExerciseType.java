@@ -1,4 +1,4 @@
-package com.miltrainApp.exersizeService;
+package com.miltrainApp.utils;
 
 public enum ExerciseType {
 
