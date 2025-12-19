@@ -10,5 +10,4 @@ public class AppUtils {
     public static UUID generateUserId() {
         return UUID.randomUUID();
     }
-
 }

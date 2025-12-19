@@ -23,4 +23,8 @@ v.0.3.0
 4) Implemented createUser & getUsers REST methods
 
 
+====================================================================
+v.0.4.0
 
+1) Implement REST methods: updateUserById & deleteUserById
+2) Code refactor
