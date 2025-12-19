@@ -9,7 +9,8 @@ import java.util.List;
 
 @Getter
 @RequiredArgsConstructor
-public class Exercise {
+public class Training {
+
     private final Long userId;
 
     private final Long trainingId;
@@ -34,6 +35,4 @@ public class Exercise {
     public List<Integer> getSets() {
         return List.copyOf(sets);
     }
-
-
 }
