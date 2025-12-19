@@ -1,13 +1,20 @@
 package com.miltrainApp.userService;
 
 
-import lombok.AllArgsConstructor;
+import com.miltrainApp.utils.AppUtils;
 import lombok.Getter;
 
+import java.util.UUID;
+
 @Getter
-@AllArgsConstructor
 public class User {
-    private final Long id;
+    private final UUID id;
     private String name;
-    Integer age;
+    private Integer age;
+
+    public User(String name, Integer age){
+        this.id = AppUtils.generateUserId();
+        this.name = name;
+        this.age = age;
+    }
 }

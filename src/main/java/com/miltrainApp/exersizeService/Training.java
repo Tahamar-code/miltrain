@@ -1,4 +1,4 @@
-package com.miltrainApp.exersize;
+package com.miltrainApp.exersizeService;
 
 
 import lombok.Getter;

@@ -7,8 +7,20 @@ v.0.1.0
 1) Add push-ups-service
 2) Add abstract class Exercise
 3) Add class User
+
 ====================================================================
 v.0.2.0
 
 1) Add class TrainingService
 2) Add crud logic inside TrainingService
+
+====================================================================
+v.0.3.0
+
+1) Add SpringBoot
+2) Add class UserService
+3) Add AppUtils for id generation UUID
+4) Implemented createUser & getUsers REST methods
+
+
+

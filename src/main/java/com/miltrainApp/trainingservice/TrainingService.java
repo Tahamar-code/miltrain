@@ -1,6 +1,6 @@
 package com.miltrainApp.trainingservice;
 
-import com.miltrainApp.exersize.Training;
+import com.miltrainApp.exersizeService.Training;
 
 import java.util.HashMap;
 import java.util.List;
