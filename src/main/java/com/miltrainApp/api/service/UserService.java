@@ -2,28 +2,32 @@ package com.miltrainApp.api.service;
 
 import com.miltrainApp.model.User;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @Slf4j
+@Service
 public class UserService {
 
-    private static final Map<UUID, User> users = new HashMap<>();
+    private final Map<Long, User> users = new HashMap<>();
 
-    public static List<User> getUsers() {
+    public User getUserById(Long id) {
+        return users.get(id);
+    }
+    public List<User> getUsers() {
         return users.values()
                     .stream()
                     .toList();
     }
 
-    public static void createUser(User newUser) {
+    public void createUser(User newUser) {
         users.put(newUser.getId(), newUser);
     }
 
-    public static void updateUser(User userForUpdate) {
+    public void updateUser(User userForUpdate) {
         User existedUser = users.values()
                                 .stream()
                                 .filter(u -> u.getId()
@@ -35,7 +39,7 @@ public class UserService {
         existedUser.setAge(userForUpdate.getAge());
     }
 
-    public static void deleteUserById(UUID userIdForDelete) {
+    public void deleteUserById(Long userIdForDelete) {
         if (users.containsKey(userIdForDelete)) {
             users.remove(userIdForDelete);
         } else {

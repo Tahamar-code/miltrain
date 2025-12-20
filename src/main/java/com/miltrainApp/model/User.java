@@ -1,17 +1,16 @@
 package com.miltrainApp.model;
 
 
-import com.miltrainApp.utils.AppUtils;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.UUID;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Getter
 public class User {
+    private static final AtomicLong userIdCounter = new AtomicLong(0);
 
-    private final UUID id;
-
+    private Long id;
     @Setter
     private String name;
 
@@ -19,8 +18,14 @@ public class User {
     private Integer age;
 
     public User(String name, Integer age) {
-        this.id = AppUtils.generateUserId();
+        this.id = generateTrainingId();
         this.name = name;
         this.age = age;
     }
+
+    public static long generateTrainingId() {
+        return userIdCounter.incrementAndGet();
+    }
+
+
 }

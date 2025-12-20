@@ -39,3 +39,14 @@ v.0.5.0
 3) Remove old Main class
 4) Add TrainingNotFoundException
 5) Add TrainingMaxSetLimitException
+
+====================================================================
+v.0.6.0
+
+
+1) Switch userId from UUID to Long
+2) Add and implement GlobalExceptionHandler for exceptions
+3) Refactor code TrainingService
+4) Refactor code UserService
+5) Add return entities for TrainingService
+

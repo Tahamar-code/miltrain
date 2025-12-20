@@ -2,25 +2,33 @@ package com.miltrainApp.api.service;
 
 import com.miltrainApp.exceptions.TrainingNotFoundException;
 import com.miltrainApp.model.Training;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
+
+@Service
 public class TrainingService {
 
-    private static final Map<Long, Training> trainings = new HashMap<>();
+    private final Map<Long, Training> trainings = new HashMap<>();
 
-    public static void createTraining(Training training) {
-        trainings.put(training.getTrainingId(), training);
+
+    public Training createTraining(Training newTraining) {
+        trainings.put(newTraining.getTrainingId(), newTraining);
+        return newTraining;
     }
 
-    public static Training getTrainingById(Long trainingId) {
-        return trainings.get(trainingId);
+    public Training getTrainingById(Long trainingId) {
+        if (trainings.containsKey(trainingId)) {
+            return trainings.get(trainingId);
+        } else {
+            throw new TrainingNotFoundException("Training not found!");
+        }
     }
 
-    public static List<Training> getAllTrainingsByUser(UUID userId) {
+    public List<Training> getAllTrainingsByUser(Long userId) {
         return trainings.values()
                         .stream()
                         .filter(t -> t.getUserId()
@@ -28,7 +36,7 @@ public class TrainingService {
                         .toList();
     }
 
-    public static void deleteTrainingById(Long trainingId) {
+    public void deleteTrainingById(Long trainingId) {
         if (trainings.containsKey(trainingId)) {
             trainings.remove(trainingId);
         } else {
@@ -36,11 +44,11 @@ public class TrainingService {
         }
     }
 
-    public static void addSetToTraining(Long trainingId, Integer reps) {
+    public void addSetToTraining(Long trainingId, Integer reps) {
         Training training = getTrainingById(trainingId);
-        if (training == null){
+        if (training == null) {
             throw new TrainingNotFoundException("Training not found!");
-        }else {
+        } else {
             training.addSet(reps);
         }
     }

@@ -8,7 +8,6 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Getter
@@ -17,7 +16,7 @@ public class Training {
 
     private static final AtomicLong trainingIdCounter = new AtomicLong(0);
 
-    private final UUID userId;
+    private final Long userId;
 
     private final List<Integer> sets = new ArrayList<>(3);
 
@@ -28,7 +27,7 @@ public class Training {
 
     private Integer totalReps;
 
-    public Training(UUID userId, ExerciseType exerciseType) {
+    public Training(Long userId, ExerciseType exerciseType) {
         this.userId = userId;
         this.trainingId = generateTrainingId();
         this.exerciseType = exerciseType;

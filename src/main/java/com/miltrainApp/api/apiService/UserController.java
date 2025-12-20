@@ -6,29 +6,43 @@ import com.miltrainApp.api.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
+    UserService userService;
+
+    UserController(UserService userService){
+        this.userService = userService;
+    }
+
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable("id") Long userId){
+     return userService.getUserById(userId);
+    }
+
     @GetMapping
-    public List<User> getUsers(){
-        return UserService.getUsers();
+    public Map<String, Object> getUsers(){
+        List<User> users = userService.getUsers();
+        return Map.of("users", users);
     }
 
     @PostMapping
-    public void createUser(@RequestBody User user){
-        UserService.createUser(user);
+    public User createUser(@RequestBody User newUser){
+        userService.createUser(newUser);
+        return newUser;
     }
 
     @PutMapping
     public void updateUser(@RequestBody User user){
-        UserService.updateUser(user);
+        userService.updateUser(user);
     }
 
     @DeleteMapping
-    public void deleteUserById(@RequestParam("id") UUID idForDelete){
-        UserService.deleteUserById(idForDelete);
+    public void deleteUserById(@RequestParam("id") Long idForDelete){
+        userService.deleteUserById(idForDelete);
     }
 }

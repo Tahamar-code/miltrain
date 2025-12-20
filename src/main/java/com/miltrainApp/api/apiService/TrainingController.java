@@ -2,38 +2,49 @@ package com.miltrainApp.api.apiService;
 
 
 import com.miltrainApp.api.service.TrainingService;
+import com.miltrainApp.model.DeleteResponse;
 import com.miltrainApp.model.Training;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/trainings")
 public class TrainingController {
 
+    TrainingService trainingService;
+
+    public TrainingController(TrainingService trainingService) {
+        this.trainingService = trainingService;
+    }
+
     @PostMapping
-    public void createTraining(@RequestBody Training newTraining){
-        TrainingService.createTraining(newTraining);
+    public Training createTraining(@RequestBody Training newTraining){
+        trainingService.createTraining(newTraining);
+        return newTraining;
     }
 
     @PostMapping("/{trainingId}/sets")
-    public void addSet(@PathVariable Long trainingId, @RequestParam Integer reps){
-        TrainingService.addSetToTraining(trainingId, reps);
+    public Training addSet(@PathVariable Long trainingId, @RequestParam Integer reps){
+        trainingService.addSetToTraining(trainingId, reps);
+        return trainingService.getTrainingById(trainingId);
     }
 
     @GetMapping("/{id}")
     public Training getTrainingById(@PathVariable("id") Long trainingId) {
-        return TrainingService.getTrainingById(trainingId);
+        return trainingService.getTrainingById(trainingId);
     }
 
     @GetMapping("/user/{userId}")
-    public List<Training> getAllTrainingsByUserId(@PathVariable UUID userId){
-        return TrainingService.getAllTrainingsByUser(userId);
+    public List<Training> getAllTrainingsByUserId(@PathVariable Long userId){
+        return trainingService.getAllTrainingsByUser(userId);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteTrainingById(@PathVariable Long id){
-        TrainingService.deleteTrainingById(id);
+    public ResponseEntity<DeleteResponse> deleteTrainingById(@PathVariable Long id){
+        trainingService.deleteTrainingById(id);
+        DeleteResponse deleteResponse = new DeleteResponse(String.format("Trainig with %d is deleted!", id));
+        return ResponseEntity.ok(deleteResponse);
     }
 }
