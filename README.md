@@ -80,3 +80,9 @@
 - BugFix with return in updateUserMethod
 - BugFix with delete User
 ---
+
+
+## v1.2.0
+- **[FEATURE]** Implement TrainingService in DB 
+- **[FEATURE]** Create new entity TrainingSet 
+- **[FEATURE]** Adjust TrainingSet to Training 

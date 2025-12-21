@@ -2,54 +2,55 @@ package com.miltrainApp.api.entityService;
 
 import com.miltrainApp.exceptions.TrainingNotFoundException;
 import com.miltrainApp.model.Training;
+import com.miltrainApp.model.TrainingSet;
+import com.miltrainApp.repository.TrainingRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @Service
 public class TrainingService {
 
-    private final Map<Long, Training> trainings = new HashMap<>();
+    private final TrainingRepository trainingRepository;
 
+
+    public TrainingService(TrainingRepository trainingRepository) {
+        this.trainingRepository = trainingRepository;
+    }
 
     public Training createTraining(Training newTraining) {
-        trainings.put(newTraining.getTrainingId(), newTraining);
+        trainingRepository.save(newTraining);
         return newTraining;
     }
 
     public Training getTrainingById(Long trainingId) {
-        if (trainings.containsKey(trainingId)) {
-            return trainings.get(trainingId);
-        } else {
-            throw new TrainingNotFoundException("Training not found!");
-        }
+        return trainingRepository.findById(trainingId)
+                                 .orElseThrow(() -> new TrainingNotFoundException("Training not found!"));
     }
+
 
     public List<Training> getAllTrainingsByUser(Long userId) {
-        return trainings.values()
-                        .stream()
-                        .filter(t -> t.getUserId()
-                                      .equals(userId))
-                        .toList();
+        return trainingRepository.findAllByUserId(userId);
     }
 
-    public void deleteTrainingById(Long trainingId) {
-        if (trainings.containsKey(trainingId)) {
-            trainings.remove(trainingId);
-        } else {
-            throw new TrainingNotFoundException("Training not found!");
-        }
+    public void deleteTrainingById(Long trainingIdForDelete) {
+        Training training = trainingRepository.findById(trainingIdForDelete)
+                                              .orElseThrow(() -> new TrainingNotFoundException("Training not found!"));
+        trainingRepository.deleteById(trainingIdForDelete);
     }
+
 
     public void addSetToTraining(Long trainingId, Integer reps) {
         Training training = getTrainingById(trainingId);
-        if (training == null) {
-            throw new TrainingNotFoundException("Training not found!");
+        if (training != null) {
+            TrainingSet newSet = new TrainingSet();
+            newSet.setReps(reps);
+            training.addSet(newSet);
         } else {
-            training.addSet(reps);
+            throw new TrainingNotFoundException("Training not found!");
         }
     }
 }
+
+
