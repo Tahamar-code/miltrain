@@ -1,8 +1,10 @@
 package com.miltrainApp.api.apiService;
 
 
+import com.miltrainApp.model.DeleteResponse;
 import com.miltrainApp.model.User;
 import com.miltrainApp.api.service.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,8 +43,10 @@ public class UserController {
         userService.updateUser(user);
     }
 
-    @DeleteMapping
-    public void deleteUserById(@RequestParam("id") Long idForDelete){
-        userService.deleteUserById(idForDelete);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<DeleteResponse> deleteUserById(@PathVariable("id") Long userId){
+        userService.deleteUserById(userId);
+        DeleteResponse deleteResponse = new DeleteResponse(String.format("User with id:%d is deleted!", userId));
+        return ResponseEntity.ok(deleteResponse);
     }
 }

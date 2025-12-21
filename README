@@ -57,3 +57,10 @@ v.0.7.0
 1) Add UserNotFoundException
 2) Add handleUserNotFound in GlobalExceptionHandler
 3) Switch all errors from String to Json
+
+====================================================================
+v.0.7.1
+
+
+1) Bugfix DeleteResponse for User
+1) Bugfix DeleteResponse for Training

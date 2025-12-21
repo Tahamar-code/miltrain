@@ -42,9 +42,10 @@ public class TrainingController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<DeleteResponse> deleteTrainingById(@PathVariable Long id){
-        trainingService.deleteTrainingById(id);
-        DeleteResponse deleteResponse = new DeleteResponse(String.format("Trainig with %d is deleted!", id));
+    public ResponseEntity<DeleteResponse> deleteTrainingById(@PathVariable("id") Long trainingId){
+        trainingService.deleteTrainingById(trainingId);
+        DeleteResponse deleteResponse = new DeleteResponse(String.format("Training with id:%d is deleted!",
+                                                                         trainingId));
         return ResponseEntity.ok(deleteResponse);
     }
 }
