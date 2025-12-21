@@ -22,7 +22,7 @@ public class TrainingController {
     @PostMapping
     public Training createTraining(@RequestBody Training newTraining){
         trainingService.createTraining(newTraining);
-        return newTraining;
+        return trainingService.getTrainingById(newTraining.getTrainingId());
     }
 
     @PostMapping("/{trainingId}/sets")
