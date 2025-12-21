@@ -5,6 +5,10 @@ build/
 !**/src/test/**/build/
 .kotlin
 
+### Postgres DB
+application.yml
+
+
 ### IntelliJ IDEA ###
 .idea/modules.xml
 .idea/jarRepositories.xml
