@@ -50,3 +50,10 @@ v.0.6.0
 4) Refactor code UserService
 5) Add return entities for TrainingService
 
+====================================================================
+v.0.7.0
+
+
+1) Add UserNotFoundException
+2) Add handleUserNotFound in GlobalExceptionHandler
+3) Switch all errors from String to Json

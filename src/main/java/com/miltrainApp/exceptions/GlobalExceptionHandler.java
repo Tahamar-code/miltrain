@@ -6,27 +6,34 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.util.Map;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleUserNotFound(UserNotFoundException ex){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", ex.getMessage()));
+    }
+
 
     @ExceptionHandler(TrainingNotFoundException.class)
-    public ResponseEntity<String> handleNotFound(TrainingNotFoundException exception) {
+    public ResponseEntity <Map<String, String>> handleTrainingNotFound(TrainingNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                             .body(exception.getMessage());
+                             .body(Map.of("error",exception.getMessage()));
     }
 
 
     @ExceptionHandler(TrainingMaxSetLimitException.class)
-    public ResponseEntity<String> handleErrorLimit(TrainingMaxSetLimitException exception) {
+    public ResponseEntity<Map<String, String>> handleErrorLimit(TrainingMaxSetLimitException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                             .body(exception.getMessage());
+                             .body(Map.of("error", exception.getMessage()));
     }
 
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleOther(Exception exception) {
+    public ResponseEntity <Map<String, String>> handleOther(Exception exception) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                             .body("Something went wrong!" + exception.getMessage());
+                             .body(Map.of("error", "Something went wrong!\n" + exception.getMessage()));
     }
 }
