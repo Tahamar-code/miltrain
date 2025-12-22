@@ -43,13 +43,12 @@ public class TrainingService {
 
     public void addSetToTraining(Long trainingId, Integer reps) {
         Training training = getTrainingById(trainingId);
-        if (training != null) {
-            TrainingSet newSet = new TrainingSet();
-            newSet.setReps(reps);
-            training.addSet(newSet);
-        } else {
-            throw new TrainingNotFoundException("Training not found!");
-        }
+
+        TrainingSet set = new TrainingSet();
+        set.setReps(reps);
+
+        training.addSet(set);
+        trainingRepository.save(training);
     }
 }
 

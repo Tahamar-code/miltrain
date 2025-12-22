@@ -86,3 +86,8 @@
 - **[FEATURE]** Implement TrainingService in DB 
 - **[FEATURE]** Create new entity TrainingSet 
 - **[FEATURE]** Adjust TrainingSet to Training 
+
+## v1.2.1
+- **[FIX]** - Resolve problem with recursion in getTraining
+response
+- **[FIX]** - Remove setId from Json response in getTraining

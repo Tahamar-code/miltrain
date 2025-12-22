@@ -23,7 +23,6 @@ public class UserService {
                              .orElseThrow(() -> new UserNotFoundException("User not found!"));
     }
 
-
     public List<User> getUsers() {
         return userRepository.findAll();
     }

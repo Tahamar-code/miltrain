@@ -1,7 +1,6 @@
 package com.miltrainApp.model;
 
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.miltrainApp.exceptions.TrainingMaxSetLimitException;
 import com.miltrainApp.utils.ExerciseType;
 import jakarta.persistence.*;
@@ -26,11 +25,11 @@ public class Training {
 
     private Long userId;
 
+    @Enumerated(EnumType.STRING)
     private ExerciseType exerciseType;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "training", cascade = CascadeType.ALL, orphanRemoval = true)
-    private final List<TrainingSet> sets = new ArrayList<>(3);
+    private List<TrainingSet> sets = new ArrayList<>(3);
 
     public Training(Long userId, ExerciseType exerciseType) {
         this.userId = userId;
@@ -38,21 +37,17 @@ public class Training {
     }
 
 
-    public void addSet(TrainingSet newSet) {
+    public void addSet(TrainingSet set) {
         if (sets.size() >= 3) {
             throw new TrainingMaxSetLimitException("Max sets is 3!");
         }
-        newSet.setTraining(this);
-        sets.add(newSet);
+        set.setTraining(this);
+        sets.add(set);
     }
 
     public Integer getTotalReps() {
         return sets.stream()
                    .mapToInt(TrainingSet::getReps)
                    .sum();
-    }
-
-    public List<TrainingSet> getSets() {
-        return List.copyOf(sets);
     }
 }
