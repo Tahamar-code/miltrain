@@ -91,3 +91,10 @@
 - **[FIX]** - Resolve problem with recursion in getTraining
 response
 - **[FIX]** - Remove setId from Json response in getTraining
+
+# **v2.0.0 — Architecture & Persistence Stabilization**
+- Full transition to JPA/Hibernate with relational model
+- Introduced Training ↔ TrainingSet domain relationship
+- Enum-based exercise type persisted via JPA
+- Resolved bidirectional entity serialization issues (Jackson)
+
