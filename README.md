@@ -69,3 +69,25 @@
 - Exception handling in place
 - Code refactored and cleaned
 ---
+
+
+## v1.1.0
+- Add Postgres DB
+- Add application.yaml (local)
+- Update gitignore
+- Remove "Map" as DB & Add Postgres DB
+- Switch logic in UserService from "MAP" & "List" to DB
+- BugFix with return in updateUserMethod
+- BugFix with delete User
+---
+
+
+## v1.2.0
+- **[FEATURE]** Implement TrainingService in DB 
+- **[FEATURE]** Create new entity TrainingSet 
+- **[FEATURE]** Adjust TrainingSet to Training 
+
+## v1.2.1
+- **[FIX]** - Resolve problem with recursion in getTraining
+response
+- **[FIX]** - Remove setId from Json response in getTraining

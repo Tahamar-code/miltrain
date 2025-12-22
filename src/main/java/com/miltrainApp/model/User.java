@@ -1,31 +1,23 @@
 package com.miltrainApp.model;
 
 
+import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.concurrent.atomic.AtomicLong;
-
+@Entity
+@Table(name = "users")
 @Getter
+@Setter
+@NoArgsConstructor
 public class User {
-    private static final AtomicLong userIdCounter = new AtomicLong(0);
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Setter
+
     private String name;
 
-    @Setter
     private Integer age;
-
-    public User(String name, Integer age) {
-        this.id = generateTrainingId();
-        this.name = name;
-        this.age = age;
-    }
-
-    public static long generateTrainingId() {
-        return userIdCounter.incrementAndGet();
-    }
-
-
 }
