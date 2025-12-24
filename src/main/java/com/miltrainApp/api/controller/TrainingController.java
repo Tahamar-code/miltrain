@@ -2,8 +2,8 @@ package com.miltrainApp.api.controller;
 
 
 import com.miltrainApp.service.TrainingService;
-import com.miltrainApp.model.DeleteResponse;
-import com.miltrainApp.model.Training;
+import com.miltrainApp.entity.model.DeleteResponse;
+import com.miltrainApp.entity.model.Training;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

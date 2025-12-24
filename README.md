@@ -101,5 +101,10 @@ response
 
 ## v2.1.0
 - **[FEATURE]** Implement Swagger Open Api docs 
-- **[FEATURE]** Implement AuthService with authentification http method 
-
+- **[FEATURE]** Implement AuthService with authorization POST http method 
+- **[FEATURE]** Implement AuthService with authentification POST http method 
+- **[FEATURE]** Implement RegisterRequestDTO, UserResponseDTO class
+- **[FEATURE]** Add new LoginAlreadyExistsException
+- **[FEATURE]** Add method existsByLogin(String login) in UserRepository
+- **[FEATURE]** Implement Builder pattern for UserResponseDTO
+- **[REFACTOR]** Remove createUser method from UserService & POST /users in UserController

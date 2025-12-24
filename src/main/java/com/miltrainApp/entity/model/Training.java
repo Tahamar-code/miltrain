@@ -1,4 +1,4 @@
-package com.miltrainApp.model;
+package com.miltrainApp.entity.model;
 
 
 import com.miltrainApp.exceptions.TrainingMaxSetLimitException;

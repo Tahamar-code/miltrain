@@ -1,8 +1,8 @@
 package com.miltrainApp.service;
 
 import com.miltrainApp.exceptions.TrainingNotFoundException;
-import com.miltrainApp.model.Training;
-import com.miltrainApp.model.TrainingSet;
+import com.miltrainApp.entity.model.Training;
+import com.miltrainApp.entity.model.TrainingSet;
 import com.miltrainApp.repository.TrainingRepository;
 import org.springframework.stereotype.Service;
 

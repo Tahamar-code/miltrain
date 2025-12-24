@@ -1,8 +1,12 @@
 package com.miltrainApp.service;
 
+import com.miltrainApp.entity.dto.RegisterRequestDTO;
+import com.miltrainApp.entity.dto.UserResponseDTO;
+import com.miltrainApp.entity.model.User;
+import com.miltrainApp.exceptions.LoginAlreadyExistsException;
 import com.miltrainApp.exceptions.UserNotFoundException;
-import com.miltrainApp.model.User;
 import com.miltrainApp.repository.UserRepository;
+import com.miltrainApp.utils.Role;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,6 +16,8 @@ import java.util.List;
 @Slf4j
 @Service
 public class UserService {
+
+    private final Role DEFAULT_ROLE = Role.USER;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -31,11 +37,6 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void createUser(User newUser) {
-        newUser.setPasswordHash(passwordEncoder.encode(newUser.getPasswordHash()));
-        userRepository.save(newUser);
-    }
-
     public User updateUser(User userForUpdate) {
         User existedUser = userRepository.findById(userForUpdate.getId())
                                          .orElseThrow(() -> new UserNotFoundException("User not found!"));
@@ -50,18 +51,6 @@ public class UserService {
         User user = userRepository.findById(userIdForDelete)
                                   .orElseThrow(() -> new UserNotFoundException("User not found!"));
         userRepository.deleteById(userIdForDelete);
-    }
-
-
-    public User authenticate(String login, String rawPassword){
-        User user = userRepository.findByLogin(login).orElseThrow(() ->
-                                                                          new RuntimeException("Invalid credentials"));
-
-        if(!passwordEncoder.matches(rawPassword, user.getPasswordHash())) {
-            throw new RuntimeException("Invalid credentials #2");
-        }
-
-        return user;
     }
 }
 

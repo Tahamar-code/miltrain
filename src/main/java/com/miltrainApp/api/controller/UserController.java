@@ -2,8 +2,8 @@ package com.miltrainApp.api.controller;
 
 
 import com.miltrainApp.service.UserService;
-import com.miltrainApp.model.DeleteResponse;
-import com.miltrainApp.model.User;
+import com.miltrainApp.entity.model.DeleteResponse;
+import com.miltrainApp.entity.model.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,12 +29,6 @@ public class UserController {
     public Map<String, Object> getUsers() {
         List<User> users = userService.getUsers();
         return Map.of("users", users);
-    }
-
-    @PostMapping
-    public User createUser(@RequestBody User newUser) {
-        userService.createUser(newUser);
-        return userService.getUserById(newUser.getId());
     }
 
     @PutMapping
