@@ -1,7 +1,7 @@
-package com.miltrainApp.api.apiService;
+package com.miltrainApp.api.controller;
 
 
-import com.miltrainApp.api.entityService.TrainingService;
+import com.miltrainApp.service.TrainingService;
 import com.miltrainApp.model.DeleteResponse;
 import com.miltrainApp.model.Training;
 import org.springframework.http.ResponseEntity;

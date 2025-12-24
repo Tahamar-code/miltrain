@@ -98,3 +98,8 @@ response
 - Enum-based exercise type persisted via JPA
 - Resolved bidirectional entity serialization issues (Jackson)
 
+
+## v2.1.0
+- **[FEATURE]** Implement Swagger Open Api docs 
+- **[FEATURE]** Implement AuthService with authentification http method 
+

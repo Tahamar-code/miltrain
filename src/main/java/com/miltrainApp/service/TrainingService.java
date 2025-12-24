@@ -1,4 +1,4 @@
-package com.miltrainApp.api.entityService;
+package com.miltrainApp.service;
 
 import com.miltrainApp.exceptions.TrainingNotFoundException;
 import com.miltrainApp.model.Training;

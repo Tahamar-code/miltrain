@@ -14,8 +14,6 @@ repositories {
 dependencies {
     // SpringBoot
     implementation("org.springframework.boot:spring-boot-starter-web")
-    // Slf4j logging
-    implementation("org.slf4j:slf4j-api:2.0.11")
 
     //Lombok src
     compileOnly("org.projectlombok:lombok:1.18.30")
@@ -27,6 +25,12 @@ dependencies {
     // JPA + Hibernate
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
+    // JWT
+    implementation ("org.springframework.boot:spring-boot-starter-security")
+    implementation ("io.jsonwebtoken:jjwt-api:0.11.5")
+    implementation( "io.jsonwebtoken:jjwt-impl:0.11.5")
+    implementation ("io.jsonwebtoken:jjwt-jackson:0.11.5")
+
     //JUnit
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
@@ -35,6 +39,10 @@ dependencies {
     // Lombok tests
     testCompileOnly("org.projectlombok:lombok:1.18.30")
     testAnnotationProcessor("org.projectlombok:lombok:1.18.30")
+
+
+    //SWAGGER
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
 }
 
 tasks.test {
