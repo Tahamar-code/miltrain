@@ -1,7 +1,8 @@
 package com.miltrainApp.api.controller;
 
-import com.miltrainApp.entity.dto.RegisterRequestDTO;
-import com.miltrainApp.entity.dto.UserResponseDTO;
+import com.miltrainApp.entity.dto.auth.LoginResponseDTO;
+import com.miltrainApp.entity.dto.user.RegisterRequestDTO;
+import com.miltrainApp.entity.dto.user.UserResponseDTO;
 import com.miltrainApp.entity.model.LoginRequest;
 import com.miltrainApp.entity.model.User;
 import com.miltrainApp.security.JwtUtil;
@@ -32,9 +33,9 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         User user = authService.authenticate(request.getLogin(), request.getPassword());
 
-        String token = jwtUtil.generateToken(user.getLogin());
+        String token = jwtUtil.generateToken(user.getId(), user.getLogin());
 
-        return ResponseEntity.ok(Map.of("token", "Bearer " + token));
+        return ResponseEntity.ok(new LoginResponseDTO("Bearer " + token));
     }
 
     @PostMapping("/register")

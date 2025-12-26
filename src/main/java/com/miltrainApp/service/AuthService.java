@@ -1,7 +1,7 @@
 package com.miltrainApp.service;
 
-import com.miltrainApp.entity.dto.RegisterRequestDTO;
-import com.miltrainApp.entity.dto.UserResponseDTO;
+import com.miltrainApp.entity.dto.user.RegisterRequestDTO;
+import com.miltrainApp.entity.dto.user.UserResponseDTO;
 import com.miltrainApp.entity.model.User;
 import com.miltrainApp.exceptions.LoginAlreadyExistsException;
 import com.miltrainApp.repository.UserRepository;

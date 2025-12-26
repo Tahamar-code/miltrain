@@ -1,9 +1,10 @@
 package com.miltrainApp.api.controller;
 
 
-import com.miltrainApp.service.TrainingService;
+import com.miltrainApp.entity.dto.training.CreateTrainingRequestDTO;
 import com.miltrainApp.entity.model.DeleteResponse;
 import com.miltrainApp.entity.model.Training;
+import com.miltrainApp.service.TrainingService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,13 +21,14 @@ public class TrainingController {
     }
 
     @PostMapping
-    public Training createTraining(@RequestBody Training newTraining){
-        trainingService.createTraining(newTraining);
-        return trainingService.getTrainingById(newTraining.getTrainingId());
+    public ResponseEntity<Training> createTraining(@RequestBody CreateTrainingRequestDTO dto) {
+
+        Training training = trainingService.createTraining(dto);
+        return ResponseEntity.ok(training);
     }
 
     @PostMapping("/{trainingId}/sets")
-    public Training addSet(@PathVariable Long trainingId, @RequestParam Integer reps){
+    public Training addSet(@PathVariable Long trainingId, @RequestParam Integer reps) {
         trainingService.addSetToTraining(trainingId, reps);
         return trainingService.getTrainingById(trainingId);
     }
@@ -37,12 +39,12 @@ public class TrainingController {
     }
 
     @GetMapping("/user/{userId}")
-    public List<Training> getAllTrainingsByUserId(@PathVariable Long userId){
+    public List<Training> getAllTrainingsByUserId(@PathVariable Long userId) {
         return trainingService.getAllTrainingsByUser(userId);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<DeleteResponse> deleteTrainingById(@PathVariable("id") Long trainingId){
+    public ResponseEntity<DeleteResponse> deleteTrainingById(@PathVariable("id") Long trainingId) {
         trainingService.deleteTrainingById(trainingId);
         DeleteResponse deleteResponse = new DeleteResponse(String.format("Training with id:%d is deleted!",
                                                                          trainingId));

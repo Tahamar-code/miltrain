@@ -1,23 +1,15 @@
 package com.miltrainApp.service;
 
-import com.miltrainApp.entity.dto.RegisterRequestDTO;
-import com.miltrainApp.entity.dto.UserResponseDTO;
 import com.miltrainApp.entity.model.User;
-import com.miltrainApp.exceptions.LoginAlreadyExistsException;
 import com.miltrainApp.exceptions.UserNotFoundException;
 import com.miltrainApp.repository.UserRepository;
-import com.miltrainApp.utils.Role;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Slf4j
 @Service
 public class UserService {
-
-    private final Role DEFAULT_ROLE = Role.USER;
 
     private final PasswordEncoder passwordEncoder;
 

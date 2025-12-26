@@ -10,16 +10,17 @@ import java.util.Date;
 
 @Component
 public class JwtUtil {
-    private final String secret = "your-super-long-and-secure-secret-key-32-characters-min";
+    private static final String SECRET = "your-super-long-and-secure-secret-key-32-characters-min";
 
     private final long expirationMs = 3600000;
 
-    public String generateToken(String login){
+    public String generateToken(Long userId, String login) {
         return Jwts.builder()
-                .setSubject(login)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expirationMs))
-                .signWith(Keys.hmacShaKeyFor(secret.getBytes()), SignatureAlgorithm.HS256)
-                .compact();
+                   .setSubject(login)
+                   .claim("userId", userId)
+                   .setIssuedAt(new Date())
+                   .setExpiration(new Date(System.currentTimeMillis() + expirationMs))
+                   .signWith(Keys.hmacShaKeyFor(SECRET.getBytes()), SignatureAlgorithm.HS256)
+                   .compact();
     }
 }

@@ -1,4 +1,4 @@
-package com.miltrainApp.entity.dto;
+package com.miltrainApp.entity.dto.user;
 
 import com.miltrainApp.utils.Role;
 import lombok.Getter;
