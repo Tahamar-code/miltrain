@@ -112,4 +112,12 @@
 - **[REFACTOR]** Add userLogin in JwtUtil
 - **[REFACTOR]** Remove useless methods in Auth flow
 
+# **v3.0.0 — JWT Authentication & Security Baseline**
 
+## 🔐 Security & Authentication
+- **[FEATURE]** JWT-based authentication (stateless)
+- **[FEATURE]** Login & registration with token issuance
+- **[SECURITY]** Endpoint protection via Spring Security filter chain
+- **[SECURITY]** JWT request validation using `JwtAuthenticationFilter`
+- **[SECURITY]** Role-based access control with `@PreAuthorize`
+- **[SECURITY]** Stateless session policy (no HTTP sessions)
