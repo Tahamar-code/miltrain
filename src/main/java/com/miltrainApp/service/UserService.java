@@ -1,21 +1,23 @@
-package com.miltrainApp.api.entityService;
+package com.miltrainApp.service;
 
+import com.miltrainApp.entity.model.User;
 import com.miltrainApp.exceptions.UserNotFoundException;
-import com.miltrainApp.model.User;
 import com.miltrainApp.repository.UserRepository;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Slf4j
 @Service
 public class UserService {
 
-    UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    private final UserRepository userRepository;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public User getUserById(Long id) {
@@ -25,10 +27,6 @@ public class UserService {
 
     public List<User> getUsers() {
         return userRepository.findAll();
-    }
-
-    public void createUser(User newUser) {
-        userRepository.save(newUser);
     }
 
     public User updateUser(User userForUpdate) {

@@ -1,6 +1,6 @@
 package com.miltrainApp.repository;
 
-import com.miltrainApp.model.Training;
+import com.miltrainApp.entity.model.Training;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
