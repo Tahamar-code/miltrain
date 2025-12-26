@@ -4,23 +4,30 @@ package com.miltrainApp.security;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
 @Component
 public class JwtUtil {
-    private static final String SECRET = "your-super-long-and-secure-secret-key-32-characters-min";
+    private final String secret;
 
-    private final long expirationMs = 3600000;
+    private final long expiration;
 
-    public String generateToken(Long userId, String login) {
+    public JwtUtil(@Value("${jwt.secret}") String secret, @Value("${jwt.expiration}") long expiration) {
+        this.secret = secret;
+        this.expiration = expiration;
+    }
+
+    public String generateToken(Long userId, String login, String role) {
         return Jwts.builder()
                    .setSubject(login)
                    .claim("userId", userId)
+                   .claim("role", role)
                    .setIssuedAt(new Date())
-                   .setExpiration(new Date(System.currentTimeMillis() + expirationMs))
-                   .signWith(Keys.hmacShaKeyFor(SECRET.getBytes()), SignatureAlgorithm.HS256)
+                   .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                   .signWith(Keys.hmacShaKeyFor(secret.getBytes()), SignatureAlgorithm.HS256)
                    .compact();
     }
 }

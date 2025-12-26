@@ -9,6 +9,9 @@ build/
 application.yml
 
 
+### .env
+.env
+
 ### IntelliJ IDEA ###
 .idea/modules.xml
 .idea/jarRepositories.xml

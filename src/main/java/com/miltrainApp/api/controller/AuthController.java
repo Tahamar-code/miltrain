@@ -33,7 +33,7 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         User user = authService.authenticate(request.getLogin(), request.getPassword());
 
-        String token = jwtUtil.generateToken(user.getId(), user.getLogin());
+        String token = jwtUtil.generateToken(user.getId(), user.getLogin(), user.getRole().name());
 
         return ResponseEntity.ok(new LoginResponseDTO("Bearer " + token));
     }

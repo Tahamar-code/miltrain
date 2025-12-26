@@ -8,6 +8,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,8 +22,11 @@ import java.util.List;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
+    private final String secret;
 
-    private static final String SECRET = "your-super-long-and-secure-secret-key-32-characters-min";
+    public JwtAuthenticationFilter(@Value("${jwt.secret}") String secret) {
+        this.secret = secret;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -32,36 +36,38 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String authHeader = request.getHeader("Authorization");
 
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
-            String token = authHeader.substring(7);
+        String token = authHeader.substring(7);
 
-            try {
+        try {
 
-                Claims claims = Jwts.parserBuilder()
-                                    .setSigningKey(Keys.hmacShaKeyFor(SECRET.getBytes()))
-                                    .build()
-                                    .parseClaimsJws(token)
-                                    .getBody();
+            Claims claims = Jwts.parserBuilder()
+                                .setSigningKey(Keys.hmacShaKeyFor(secret.getBytes()))
+                                .build()
+                                .parseClaimsJws(token)
+                                .getBody();
 
+            String login = claims.getSubject();
+            String role = claims.get("role", String.class);
+            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(login,
+                                                                                               null,
+                                                                                               List.of(new SimpleGrantedAuthority(
+                                                                                                       "ROLE_" + role)));
 
-                String login = claims.getSubject();
+            auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(login,
-                                                                                                             null,
-                                                                                                             List.of(new SimpleGrantedAuthority(
-                                                                                                                     "ROLE_USER")));
-
-
-                auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-
-                SecurityContextHolder.getContext()
-                                     .setAuthentication(auth);
-            } catch (Exception e) {
-                SecurityContextHolder.clearContext();
-            }
+            SecurityContextHolder.getContext()
+                                 .setAuthentication(auth);
+        } catch (Exception e) {
+            SecurityContextHolder.clearContext();
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
         }
         filterChain.doFilter(request, response);
     }
 }
+

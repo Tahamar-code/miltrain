@@ -125,3 +125,7 @@
 ## v3.0.1
 - **[FIX]** Allow public access to Swagger UI endpoints
 - **[SECURITY]** Whitelist Swagger paths in Spring Security configuration
+
+
+## v3.0.2
+- **[SECURITY]** {SF-06} - JWT Security Hardening
