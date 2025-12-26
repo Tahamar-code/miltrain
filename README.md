@@ -121,3 +121,7 @@
 - **[SECURITY]** JWT request validation using `JwtAuthenticationFilter`
 - **[SECURITY]** Role-based access control with `@PreAuthorize`
 - **[SECURITY]** Stateless session policy (no HTTP sessions)
+
+## v3.0.1
+- **[FIX]** Allow public access to Swagger UI endpoints
+- **[SECURITY]** Whitelist Swagger paths in Spring Security configuration
