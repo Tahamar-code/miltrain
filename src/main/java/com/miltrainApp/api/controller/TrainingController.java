@@ -38,9 +38,9 @@ public class TrainingController {
         return trainingService.getTrainingById(trainingId);
     }
 
-    @GetMapping("/user/{userId}")
-    public List<Training> getAllTrainingsByUserId(@PathVariable Long userId) {
-        return trainingService.getAllTrainingsByUser(userId);
+    @GetMapping("/user")
+    public List<Training> getAllTrainingsByUserId() {
+        return trainingService.getAllTrainingsByUser();
     }
 
     @DeleteMapping("/{id}")

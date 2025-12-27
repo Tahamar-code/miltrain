@@ -131,3 +131,7 @@
 
 ## v3.1.0
 - **[FEATURE]** {SF-07} Added interfaces with implementations
+
+
+## v3.1.1
+- **[SECURITY]** {SF-08} Implement role-based access control for Training methods (@PreAuthorize)
