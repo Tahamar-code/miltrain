@@ -1,6 +1,7 @@
 package com.miltrainApp.service.impl;
 
 import com.miltrainApp.entity.dto.training.CreateTrainingRequestDTO;
+import com.miltrainApp.entity.dto.training.TrainingResponseDTO;
 import com.miltrainApp.entity.model.Training;
 import com.miltrainApp.entity.model.TrainingSet;
 import com.miltrainApp.entity.model.User;
@@ -46,7 +47,7 @@ public class TrainingServiceImpl implements TrainingService {
 
     @Override
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public Training createTraining(CreateTrainingRequestDTO createTrainingRequest) {
+    public TrainingResponseDTO createTraining(CreateTrainingRequestDTO createTrainingRequest) {
 
         String login = getCurrentLogin();
 
@@ -57,12 +58,16 @@ public class TrainingServiceImpl implements TrainingService {
 
         Training training = new Training(userId, createTrainingRequest.getExerciseType());
 
-        return trainingRepository.save(training);
+        Training trainingInDb = trainingRepository.save(training);
+
+        return new TrainingResponseDTO.Builder().userId(trainingInDb.getUserId())
+                                                .exercise(trainingInDb.getExerciseType())
+                                                .build();
     }
 
     @Override
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public Training getTrainingById(Long trainingId) {
+    public TrainingResponseDTO getTrainingById(Long trainingId) {
 
         Training training = trainingRepository.findById(trainingId)
                                               .orElseThrow(() -> new TrainingNotFoundException("Training not found!"));
@@ -78,7 +83,12 @@ public class TrainingServiceImpl implements TrainingService {
                                .equals(getCurrentUserId())) {
             throw new AccessDeniedException("You can only access your on trainings!");
         }
-        return training;
+
+
+        return new TrainingResponseDTO().builder()
+                                        .userId(trainingId)
+                                        .exercise(training.getExerciseType())
+                                        .build();
     }
 
     @Override
@@ -112,14 +122,23 @@ public class TrainingServiceImpl implements TrainingService {
 
     @Override
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public void addSetToTraining(Long trainingId, Integer reps) {
-        Training training = getTrainingById(trainingId);
+    public TrainingResponseDTO addSetToTraining(Long trainingId, Integer reps) {
+
+        Training training = trainingRepository.findById(trainingId)
+                                              .orElseThrow(() -> new TrainingNotFoundException("Training not found!"));
 
         TrainingSet set = new TrainingSet();
         set.setReps(reps);
 
         training.addSet(set);
-        trainingRepository.save(training);
+
+        Training trainingAfterUpdate = trainingRepository.save(training);
+
+        return new TrainingResponseDTO.Builder().trainingId(trainingAfterUpdate.getTrainingId())
+                                                .userId(trainingAfterUpdate.getUserId())
+                                                .exercise(trainingAfterUpdate.getExerciseType())
+                                                .sets(trainingAfterUpdate.getSets())
+                                                .build();
     }
 }
 

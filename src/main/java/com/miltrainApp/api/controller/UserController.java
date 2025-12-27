@@ -1,8 +1,10 @@
 package com.miltrainApp.api.controller;
 
 
+import com.miltrainApp.entity.dto.user.UpdateUserRequestDTO;
+import com.miltrainApp.entity.dto.user.UserResponseDTO;
 import com.miltrainApp.service.UserService;
-import com.miltrainApp.entity.model.DeleteResponse;
+import com.miltrainApp.entity.dto.training.DeleteResponseDTO;
 import com.miltrainApp.entity.model.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +23,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable("id") Long userId) {
+    public UserResponseDTO getUserById(@PathVariable("id") Long userId) {
         return userService.getUserById(userId);
     }
 
@@ -32,14 +34,14 @@ public class UserController {
     }
 
     @PutMapping
-    public User updateUser(@RequestBody User user) {
+    public UserResponseDTO updateUser(@RequestBody UpdateUserRequestDTO user) {
         return userService.updateUser(user);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<DeleteResponse> deleteUserById(@PathVariable("id") Long userId) {
+    public ResponseEntity<DeleteResponseDTO> deleteUserById(@PathVariable("id") Long userId) {
         userService.deleteUserById(userId);
-        DeleteResponse deleteResponse = new DeleteResponse(String.format("User with id:%d is deleted!", userId));
-        return ResponseEntity.ok(deleteResponse);
+        DeleteResponseDTO deleteResponseDTO = new DeleteResponseDTO(String.format("User with id:%d is deleted!", userId));
+        return ResponseEntity.ok(deleteResponseDTO);
     }
 }

@@ -135,3 +135,6 @@
 
 ## v3.1.1
 - **[SECURITY]** {SF-08} Implement role-based access control for Training methods (@PreAuthorize)
+
+## v3.1.2
+- **[REFACTOR]** {SF-09} Add lacking DTOs and update user/training/auth functionality
